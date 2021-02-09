@@ -1,7 +1,11 @@
 ---
-title: "About this site"
+title: "About me"
 description: |
-  Some additional details about the website
+    My current research as a PhD student focuses on restoration ecology, working within the ecological frameworks of habitat suitablity modeling, plant trait theory, and ontogentic niche shifts. Using the chaparral ecosystem as a study site I have planted one year old seedlings of ten different species over six acres and am mapping survival to microsite (~1m resolution) topographic and environmental conditions. The goal is to create a fine scale habitat suitability model for both the ecosystem as a whole and per species that can be used in future restoration projects. Additionally, I am going to test how wella suite of ~30 plant functional traits predicts habitat suitability, to see if our findings can be extrapolated to additional species outside the study. Future work is aimed at seeing if seedling conditions prior to outplanting can alter certain allocation traits that might optimize habitat suitability and investigating whether established seedlings start to act as nurse plants and ameloriate site conditions for a second round of planting. 
+    
+    Another current focus of my research is on fire behavior modeling and whether remote sensing can be used to create custom fuel models. Working at The Nature Conservancy's Dangermond Preserve, I am using field data to train a combination of Lansat, Sentinel, Avarris, and Lidar data to model inputs to custom fuel models. The goal of this is to get more continuous and finescale fuel inputs for more accurate fire behavior modeling. 
+    
+    Future research I have planned is aimed at understanding post-fire mortality in plants through a physiological framework. Post-fire mortality occurs either through cambium necrosis or xylem dysfunction. I am planning work to understand how stored carbon, plant traits(e.g. bark thickness), and xylem and phloem physiology influence how vulnerable a given species is to thse mechanisms. 
 ---
 
 ```{r setup, include=FALSE}

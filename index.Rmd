@@ -1,20 +1,14 @@
 ---
 title: "Shane Dewees"
-image: "shane.jpg"
+image: "shane.png"
 links:
-  - label: LinkedIn
-    url: "https://linkedin.com/"
-  - label: Twitter
-    url: "https://twitter.com/"
   - label: GitHub
-    url: "https://github.com/"
+    url: "https://github.com/sdewees0523"
   - label: Email
-    url: "mailto:email@email.com"
+    url: "mailto:sdewees@ucsb.edu"
 output:
   postcards::jolla
 site: distill::distill_website
 ---
  
-I am a classically trained data scientist living in the San Francisco Bay Area. 
-Currently I work on the Oculus team at Facebook. I love talking about baseball, 
-true crime podcasts, and causal inference.
+I am a Phd student in the Ecology, Evolution, and Marine Biology department at the University of California, Santa Barbara. I study restoration ecology, plant physiology, and fire ecology/behavior with a plant functional trait framework. Outside of my studies I like to surf, bike, hike, and camp. 
