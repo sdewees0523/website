@@ -1,0 +1,119 @@
+---
+title: "Parameter estimation and bootstrapping"
+description: |
+  This project demonstrates parameter estimation and bootstrapping analysis
+author:
+  - name: Shane Dewees
+date: 03-11-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+    theme: journal
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(boot)
+library(gt)
+library(patchwork)
+library(here) 
+library(janitor)
+library(nlstools)
+```
+
+## Parameter Estimation
+
+```{r, warning= FALSE, message= FALSE}
+wild_catch <- read.csv(here("_posts", "bootstrapping", "data", "fish_catch.csv"), skip = 1)
+colnames(wild_catch) <- wild_catch[1,]
+wild_catch <- wild_catch %>% 
+  slice(-(1:3)) %>% 
+  slice(-(64:67)) %>% 
+  clean_names() %>% 
+  mutate(year = as.numeric(year),
+         wild_catch = as.numeric(wild_catch),
+         farmed_fish = as.numeric(farmed_fish),
+         total_fish_production = as.numeric(total_fish_production),
+         year_new = 1:n())
+  
+
+ggplot(wild_catch, aes(x = year, y = wild_catch))+
+  geom_point()
+
+wild_catch_exp <- wild_catch %>% 
+  filter(year < 1990) %>% 
+  mutate(ln_wild_catch = log(wild_catch))
+lm_k <- lm(ln_wild_catch ~ year, data = wild_catch_exp)
+```
+
+figure 1: Exploratory graph of how wild catch changes over time. 
+
+The above graph shows that there appears to be a logistic growth in wild catch, or that it initially increases exponentially, but then slows down and eventually platues as carrying capacity is reached. Mathematically this would look like $P(t) = \frac{K} {1 + Ae^{-kt}}$. The inital estimates for the parameters in the model are that K = 90, A = (90-25)/25 or 2.6, and k = 0.03
+
+```{r, warning=FALSE, message=FALSE}
+wild_catch_nls<- nls(wild_catch ~ K/(1 + A*exp(-r*year_new)),
+               data = wild_catch,
+               start = list(K = 90, A = 2.6, r = 0.03),
+               trace = FALSE)
+model_out <- broom::tidy(wild_catch_nls)
+
+```
+
+Our model with estimation parameters is: 
+
+$P(t) = \frac{100.28} {1 + 4.63e^{-0.07t}}$
+
+
+```{r, message = FALSE, warning=FALSE}
+p_predict <- predict(wild_catch_nls,)
+p_ci <- confint2(wild_catch_nls)
+wild_catch_predict <- data.frame(wild_catch, p_predict)
+
+ggplot(data = wild_catch_predict, aes(x = year, y = wild_catch))+
+  geom_point() + 
+  geom_line(aes(x = year, y = p_predict)) +
+  labs(title= "Predicted wild catch from nls overlaying actual wild catch", 
+       x = "Year", 
+       y = "Wild catch") +
+  theme_classic()
+```
+
+## Bootstrap analysis
+
+```{r, message= FALSE, warning=FALSE}
+nonbinary_offense <- c(1,1,1,1,1,1,1,1,1,1,
+                       1,1,1,1,1,1,1,1,1,1,
+                       1,1,0,0,0,0,0,0,0,0,
+                       0,0,0,0,0,0)
+nonbinary_offense_df <- data.frame(nonbinary_offense)
+colnames(nonbinary_offense_df) <- c("response")
+prop_fun <- function(x,i){mean(x[i])} # because I created the vector as binary 1's for yes and 0's for no, taking the mean is effectively the same as creating a proportion, because it adds up all the 1's (yes responses) and divides it by the total responses.
+boot_10k <- boot(nonbinary_offense, 
+                   statistic = prop_fun, 
+                   R = 10000)
+boot_100k <- boot(nonbinary_offense,
+                  statistic = prop_fun, 
+                  R=100000)
+boot_10k_df <- data.frame(bs_mean = boot_10k$t)
+boot_100k_df <- data.frame(bs_mean = boot_100k$t)
+
+p1 <- ggplot(data = nonbinary_offense_df, aes(x = response)) +
+  geom_histogram()
+
+p2 <- ggplot(data = boot_10k_df, aes(x = bs_mean)) +
+  geom_histogram()
+
+p3 <- ggplot(data = boot_100k_df, aes(x = bs_mean)) +
+  geom_histogram()
+
+(p1 + p2 + p3) & theme_minimal()
+
+boot.ci(boot_100k, conf = 0.95)
+
+```
+
+The 2014 UCSB Campus Climate Project Final Report found that 61% of students identifying as nonbinary/genderqueer reported having experienced "exclusionary, offensive, hostile, or intimidating" conduct (n=36), with a bootstrapped 95% confidence interval of [0.45, 0.77]% (n=100,000 bootstrap samples). 
