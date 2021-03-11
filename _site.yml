@@ -1,7 +1,7 @@
 name: "."
-title: "mfeo"
+title: "Shane Dewees"
 description: |
-  mfeo
+  Shane Dewees
 output_dir: "docs"
 navbar:
   right:
@@ -9,6 +9,8 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Blog"
+    - text: "Curriculum Vitea"
+      href: curriculum_vitea.html
+    - text: "Featured work"
       href: blog.html
 output: distill::distill_article

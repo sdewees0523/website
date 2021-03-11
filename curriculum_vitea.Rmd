@@ -1,0 +1,12 @@
+---
+title: "Curriculum Vitea"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = FALSE, message=FALSE, fig.align='center', fig.pos='H', out.width = "800px", out.height = "1100px"}
+knitr::include_graphics("cv.pdf")
+```
