@@ -6,28 +6,28 @@
       "description": "My current research as a PhD student focuses on restoration ecology, working within the ecological frameworks of habitat suitablity modeling, plant trait theory, and ontogentic niche shifts. Using the chaparral ecosystem as a study site I have planted one year old seedlings of ten different species over six acres and am mapping survival to microsite (~1m resolution) topographic and environmental conditions. The goal is to create a fine scale habitat suitability model for both the ecosystem as a whole and per species that can be used in future restoration projects. Additionally, I am going to test how wella suite of ~30 plant functional traits predicts habitat suitability, to see if our findings can be extrapolated to additional species outside the study. Future work is aimed at seeing if seedling conditions prior to outplanting can alter certain allocation traits that might optimize habitat suitability and investigating whether established seedlings start to act as nurse plants and ameloriate site conditions for a second round of planting. \n\nAnother current focus of my research is on fire behavior modeling and whether remote sensing can be used to create custom fuel models. Working at The Nature Conservancy's Dangermond Preserve, I am using field data to train a combination of Lansat, Sentinel, Avarris, and Lidar data to model inputs to custom fuel models. The goal of this is to get more continuous and finescale fuel inputs for more accurate fire behavior modeling. \n\nFuture research I have planned is aimed at understanding post-fire mortality in plants through a physiological framework. Post-fire mortality occurs either through cambium necrosis or xylem dysfunction. I am planning work to understand how stored carbon, plant traits(e.g. bark thickness), and xylem and phloem physiology influence how vulnerable a given species is to thse mechanisms. ",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-03-15T07:45:41-07:00"
+      "last_modified": "2021-03-15T07:57:35-07:00"
     },
     {
       "path": "curriculum_vitea.html",
       "title": "Curriculum Vitea",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nShane Dewees\r\n\r\n\r\nHome\r\nAbout\r\nCurriculum Vitea\r\nFeatured work\r\n☰\r\n\r\n\r\n  \r\n    \r\n      \r\n        \r\n        \r\n        \r\n      \r\n      \r\n    \r\n    \r\n      \r\n  Home\r\n\r\n\r\n  About\r\n\r\n\r\n  Curriculum Vitea\r\n\r\n\r\n  Featured work\r\n\r\n      \r\n  \r\n\r\n\r\n\r\n\r\n\r\n\r\nCurriculum Vitea\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n// add bootstrap table styles to pandoc tables\r\nfunction bootstrapStylePandocTables() {\r\n  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');\r\n}\r\n$(document).ready(function () {\r\n  bootstrapStylePandocTables();\r\n});\r\n\r\n\r\n\r\n$(document).ready(function () {\r\n  window.buildTabsets(\"TOC\");\r\n});\r\n\r\n$(document).ready(function () {\r\n  $('.tabset-dropdown > .nav-tabs > li').click(function () {\r\n    $(this).parent().toggleClass('nav-tabs-open');\r\n  });\r\n});\r\n\r\n  (function () {\r\n    var script = document.createElement(\"script\");\r\n    script.type = \"text/javascript\";\r\n    script.src  = \"https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML\";\r\n    document.getElementsByTagName(\"head\")[0].appendChild(script);\r\n  })();\r\n",
-      "last_modified": "2021-03-15T07:45:42-07:00"
+      "last_modified": "2021-03-15T07:57:36-07:00"
     },
     {
       "path": "featured_projects.html",
       "title": "Featured projects",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-03-15T07:45:44-07:00"
+      "last_modified": "2021-03-15T07:57:37-07:00"
     },
     {
       "path": "index.html",
       "title": "Shane Dewees",
       "author": [],
       "contents": "\r\n\r\n          \r\n          \r\n          Shane Dewees\r\n          \r\n          \r\n          Home\r\n          About\r\n          Curriculum Vitea\r\n          Featured work\r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            Shane Dewees\r\n          \r\n          \r\n            \r\n              I am a Phd student in the Ecology, Evolution, and Marine Biology department at the University of California, Santa Barbara. I study restoration ecology, plant physiology, and fire ecology/behavior with a plant functional trait framework. Outside of my studies I like to surf, bike, hike, and camp.\r\n            \r\n            \r\n              I am a Phd student in the Ecology, Evolution, and Marine Biology department at the University of California, Santa Barbara. I study restoration ecology, plant physiology, and fire ecology/behavior with a plant functional trait framework. Outside of my studies I like to surf, bike, hike, and camp.\r\n            \r\n          \r\n\r\n          \r\n            \r\n              \r\n                  \r\n                    \r\n                      GitHub\r\n                    \r\n                  \r\n                \r\n                                \r\n                  \r\n                    \r\n                      Email\r\n                    \r\n                  \r\n                \r\n                              \r\n          \r\n\r\n          \r\n            \r\n              \r\n                                \r\n                  \r\n                    GitHub\r\n                  \r\n                \r\n                                \r\n                  \r\n                    Email\r\n                  \r\n                \r\n                              \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    ",
-      "last_modified": "2021-03-15T07:45:44-07:00"
+      "last_modified": "2021-03-15T07:57:38-07:00"
     }
   ],
   "collections": ["posts/posts.json"]

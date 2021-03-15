@@ -4,7 +4,7 @@ description: |
   This project demonstrates a text analysis in Rstudio 
 author:
   - name: Shane Dewees
-date: 02-09-2021
+date: 02-21-2021
 output:
   distill::distill_article:
     self_contained: false

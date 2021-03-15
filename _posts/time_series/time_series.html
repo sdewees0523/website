@@ -85,635 +85,39 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
 
   <!--radix_placeholder_meta_tags-->
-  <title>Shane Dewees: Featured projects</title>
+  <title>Time series analysis</title>
+
+  <meta property="description" itemprop="description" content="This project demonstrates time series analysis"/>
 
 
-
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2021-03-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2021-03-15"/>
+  <meta name="article:author" content="Shane Dewees"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="Shane Dewees: Featured projects"/>
+  <meta property="og:title" content="Time series analysis"/>
   <meta property="og:type" content="article"/>
+  <meta property="og:description" content="This project demonstrates time series analysis"/>
   <meta property="og:locale" content="en_US"/>
-  <meta property="og:site_name" content="Shane Dewees"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="Shane Dewees: Featured projects"/>
+  <meta property="twitter:title" content="Time series analysis"/>
+  <meta property="twitter:description" content="This project demonstrates time series analysis"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","listing"]}},"value":[{"type":"character","attributes":{},"value":["Featured projects"]},{"type":"character","attributes":{},"value":["posts"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Time series analysis"]},{"type":"character","attributes":{},"value":["This project demonstrates time series analysis\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Shane Dewees"]}]}]},{"type":"character","attributes":{},"value":["03-15-2021"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained","code_folding","theme","toc","toc_float"]}},"value":[{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["hide"]},{"type":"character","attributes":{},"value":["journal"]},{"type":"logical","attributes":{},"value":[true]},{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["data/willamette_fish_passage.csv","time_series_files/anchor-4.2.2/anchor.min.js","time_series_files/bowser-1.9.3/bowser.min.js","time_series_files/distill-2.2.21/template.v2.js","time_series_files/figure-html5/unnamed-chunk-1-1.png","time_series_files/figure-html5/unnamed-chunk-2-1.png","time_series_files/figure-html5/unnamed-chunk-3-1.png","time_series_files/header-attrs-2.6.6/header-attrs.js","time_series_files/jquery-1.11.3/jquery.min.js","time_series_files/popper-2.6.0/popper.min.js","time_series_files/tippy-6.2.7/tippy-bundle.umd.min.js","time_series_files/tippy-6.2.7/tippy-light-border.css","time_series_files/tippy-6.2.7/tippy.css","time_series_files/tippy-6.2.7/tippy.umd.min.js","time_series_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
   <!--radix_placeholder_navigation_in_header-->
-  <meta name="distill:offset" content=""/>
-
-  <script type="application/javascript">
-
-    window.headroom_prevent_pin = false;
-
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-
-      // initialize headroom for banner
-      var header = $('header').get(0);
-      var headerHeight = header.offsetHeight;
-      var headroom = new Headroom(header, {
-        tolerance: 5,
-        onPin : function() {
-          if (window.headroom_prevent_pin) {
-            window.headroom_prevent_pin = false;
-            headroom.unpin();
-          }
-        }
-      });
-      headroom.init();
-      if(window.location.hash)
-        headroom.unpin();
-      $(header).addClass('headroom--transition');
-
-      // offset scroll location for banner on hash change
-      // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
-      window.addEventListener("hashchange", function(event) {
-        window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
-      });
-
-      // responsive menu
-      $('.distill-site-header').each(function(i, val) {
-        var topnav = $(this);
-        var toggle = topnav.find('.nav-toggle');
-        toggle.on('click', function() {
-          topnav.toggleClass('responsive');
-        });
-      });
-
-      // nav dropdowns
-      $('.nav-dropbtn').click(function(e) {
-        $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
-        $(this).parent().siblings('.nav-dropdown')
-           .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $("body").click(function(e){
-        $('.nav-dropdown-content').removeClass('nav-dropdown-active');
-      });
-      $(".nav-dropdown").click(function(e){
-        e.stopPropagation();
-      });
-    });
-  </script>
-
-  <style type="text/css">
-
-  /* Theme (user-documented overrideables for nav appearance) */
-
-  .distill-site-nav {
-    color: rgba(255, 255, 255, 0.8);
-    background-color: #0F2E3D;
-    font-size: 15px;
-    font-weight: 300;
-  }
-
-  .distill-site-nav a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .distill-site-nav a:hover {
-    color: white;
-  }
-
-  @media print {
-    .distill-site-nav {
-      display: none;
-    }
-  }
-
-  .distill-site-header {
-
-  }
-
-  .distill-site-footer {
-
-  }
-
-
-  /* Site Header */
-
-  .distill-site-header {
-    width: 100%;
-    box-sizing: border-box;
-    z-index: 3;
-  }
-
-  .distill-site-header .nav-left {
-    display: inline-block;
-    margin-left: 8px;
-  }
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header .nav-left {
-      margin-left: 0;
-    }
-  }
-
-
-  .distill-site-header .nav-right {
-    float: right;
-    margin-right: 8px;
-  }
-
-  .distill-site-header a,
-  .distill-site-header .title {
-    display: inline-block;
-    text-align: center;
-    padding: 14px 10px 14px 10px;
-  }
-
-  .distill-site-header .title {
-    font-size: 18px;
-    min-width: 150px;
-  }
-
-  .distill-site-header .logo {
-    padding: 0;
-  }
-
-  .distill-site-header .logo img {
-    display: none;
-    max-height: 20px;
-    width: auto;
-    margin-bottom: -4px;
-  }
-
-  .distill-site-header .nav-image img {
-    max-height: 18px;
-    width: auto;
-    display: inline-block;
-    margin-bottom: -3px;
-  }
-
-
-
-  @media screen and (min-width: 1000px) {
-    .distill-site-header .logo img {
-      display: inline-block;
-    }
-    .distill-site-header .nav-left {
-      margin-left: 20px;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 20px;
-    }
-    .distill-site-header .title {
-      padding-left: 12px;
-    }
-  }
-
-
-  .distill-site-header .nav-toggle {
-    display: none;
-  }
-
-  .nav-dropdown {
-    display: inline-block;
-    position: relative;
-  }
-
-  .nav-dropdown .nav-dropbtn {
-    border: none;
-    outline: none;
-    color: rgba(255, 255, 255, 0.8);
-    padding: 16px 10px;
-    background-color: transparent;
-    font-family: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    margin: 0;
-    margin-top: 1px;
-    z-index: 2;
-  }
-
-  .nav-dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 200px;
-    border: 1px solid rgba(0,0,0,0.15);
-    border-radius: 4px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-    z-index: 1;
-    margin-top: 2px;
-    white-space: nowrap;
-    padding-top: 4px;
-    padding-bottom: 4px;
-  }
-
-  .nav-dropdown-content hr {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-dropdown-active {
-    display: block;
-  }
-
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
-    color: black;
-    padding: 6px 24px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-
-  .nav-dropdown-content .nav-dropdown-header {
-    display: block;
-    padding: 5px 24px;
-    padding-bottom: 0;
-    text-transform: uppercase;
-    font-size: 14px;
-    color: #999999;
-    white-space: nowrap;
-  }
-
-  .nav-dropdown:hover .nav-dropbtn {
-    color: white;
-  }
-
-  .nav-dropdown-content a:hover {
-    background-color: #ddd;
-    color: black;
-  }
-
-  .nav-right .nav-dropdown-content {
-    margin-left: -45%;
-    right: 0;
-  }
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
-    .distill-site-header a.nav-toggle {
-      float: right;
-      display: block;
-    }
-    .distill-site-header .title {
-      margin-left: 0;
-    }
-    .distill-site-header .nav-right {
-      margin-right: 0;
-    }
-    .distill-site-header {
-      overflow: hidden;
-    }
-    .nav-right .nav-dropdown-content {
-      margin-left: 0;
-    }
-  }
-
-
-  @media screen and (max-width: 768px) {
-    .distill-site-header.responsive {position: relative; min-height: 500px; }
-    .distill-site-header.responsive a.nav-toggle {
-      position: absolute;
-      right: 0;
-      top: 0;
-    }
-    .distill-site-header.responsive a,
-    .distill-site-header.responsive .nav-dropdown {
-      display: block;
-      text-align: left;
-    }
-    .distill-site-header.responsive .nav-left,
-    .distill-site-header.responsive .nav-right {
-      width: 100%;
-    }
-    .distill-site-header.responsive .nav-dropdown {float: none;}
-    .distill-site-header.responsive .nav-dropdown-content {position: relative;}
-    .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
-      display: block;
-      width: 100%;
-      text-align: left;
-    }
-  }
-
-  /* Site Footer */
-
-  .distill-site-footer {
-    width: 100%;
-    overflow: hidden;
-    box-sizing: border-box;
-    z-index: 3;
-    margin-top: 30px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    text-align: center;
-  }
-
-  /* Headroom */
-
-  d-title {
-    padding-top: 6rem;
-  }
-
-  @media print {
-    d-title {
-      padding-top: 4rem;
-    }
-  }
-
-  .headroom {
-    z-index: 1000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .headroom--transition {
-    transition: all .4s ease-in-out;
-  }
-
-  .headroom--unpinned {
-    top: -100px;
-  }
-
-  .headroom--pinned {
-    top: 0;
-  }
-
-  /* adjust viewport for navbar height */
-  /* helps vertically center bootstrap (non-distill) content */
-  .min-vh-100 {
-    min-height: calc(100vh - 100px) !important;
-  }
-
-  </style>
-
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
-  <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
-  <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
-  <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
-  <script src="site_libs/autocomplete-0.37.1/autocomplete.min.js"></script>
-  <script src="site_libs/fuse-6.4.1/fuse.min.js"></script>
-
-  <script type="application/javascript">
-
-  function getMeta(metaName) {
-    var metas = document.getElementsByTagName('meta');
-    for (let i = 0; i < metas.length; i++) {
-      if (metas[i].getAttribute('name') === metaName) {
-        return metas[i].getAttribute('content');
-      }
-    }
-    return '';
-  }
-
-  function offsetURL(url) {
-    var offset = getMeta('distill:offset');
-    return offset ? offset + '/' + url : url;
-  }
-
-  function createFuseIndex() {
-
-    // create fuse index
-    var options = {
-      keys: [
-        { name: 'title', weight: 20 },
-        { name: 'categories', weight: 15 },
-        { name: 'description', weight: 10 },
-        { name: 'contents', weight: 5 },
-      ],
-      ignoreLocation: true,
-      threshold: 0
-    };
-    var fuse = new window.Fuse([], options);
-
-    // fetch the main search.json
-    return fetch(offsetURL('search.json'))
-      .then(function(response) {
-        if (response.status == 200) {
-          return response.json().then(function(json) {
-            // index main articles
-            json.articles.forEach(function(article) {
-              fuse.add(article);
-            });
-            // download collections and index their articles
-            return Promise.all(json.collections.map(function(collection) {
-              return fetch(offsetURL(collection)).then(function(response) {
-                if (response.status === 200) {
-                  return response.json().then(function(articles) {
-                    articles.forEach(function(article) {
-                      fuse.add(article);
-                    });
-                  })
-                } else {
-                  return Promise.reject(
-                    new Error('Unexpected status from search index request: ' +
-                              response.status)
-                  );
-                }
-              });
-            })).then(function() {
-              return fuse;
-            });
-          });
-
-        } else {
-          return Promise.reject(
-            new Error('Unexpected status from search index request: ' +
-                        response.status)
-          );
-        }
-      });
-  }
-
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-
-    // get search element (bail if we don't have one)
-    var searchEl = window.document.getElementById('distill-search');
-    if (!searchEl)
-      return;
-
-    createFuseIndex()
-      .then(function(fuse) {
-
-        // make search box visible
-        searchEl.classList.remove('hidden');
-
-        // initialize autocomplete
-        var options = {
-          autoselect: true,
-          hint: false,
-          minLength: 2,
-        };
-        window.autocomplete(searchEl, options, [{
-          source: function(query, callback) {
-            const searchOptions = {
-              isCaseSensitive: false,
-              shouldSort: true,
-              minMatchCharLength: 2,
-              limit: 10,
-            };
-            var results = fuse.search(query, searchOptions);
-            callback(results
-              .map(function(result) { return result.item; })
-            );
-          },
-          templates: {
-            suggestion: function(suggestion) {
-              var img = suggestion.preview && Object.keys(suggestion.preview).length > 0
-                ? `<img src="${offsetURL(suggestion.preview)}"</img>`
-                : '';
-              var html = `
-                <div class="search-item">
-                  <h3>${suggestion.title}</h3>
-                  <div class="search-item-description">
-                    ${suggestion.description || ''}
-                  </div>
-                  <div class="search-item-preview">
-                    ${img}
-                  </div>
-                </div>
-              `;
-              return html;
-            }
-          }
-        }]).on('autocomplete:selected', function(event, suggestion) {
-          window.location.href = offsetURL(suggestion.path);
-        });
-        // remove inline display style on autocompleter (we want to
-        // manage responsive display via css)
-        $('.algolia-autocomplete').css("display", "");
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-
-  });
-
-  </script>
-
-  <style type="text/css">
-
-  .nav-search {
-    font-size: x-small;
-  }
-
-  /* Algolioa Autocomplete */
-
-  .algolia-autocomplete {
-    display: inline-block;
-    margin-left: 10px;
-    vertical-align: sub;
-    background-color: white;
-    color: black;
-    padding: 6px;
-    padding-top: 8px;
-    padding-bottom: 0;
-    border-radius: 6px;
-    border: 1px #0F2E3D solid;
-    width: 180px;
-  }
-
-
-  @media screen and (max-width: 768px) {
-    .distill-site-nav .algolia-autocomplete {
-      display: none;
-      visibility: hidden;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete {
-      display: inline-block;
-      visibility: visible;
-    }
-    .distill-site-nav.responsive .algolia-autocomplete .aa-dropdown-menu {
-      margin-left: 0;
-      width: 400px;
-      max-height: 400px;
-    }
-  }
-
-  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {
-    width: 90%;
-    outline: none;
-    border: none;
-  }
-
-  .algolia-autocomplete .aa-hint {
-    color: #999;
-  }
-  .algolia-autocomplete .aa-dropdown-menu {
-    width: 550px;
-    max-height: 70vh;
-    overflow-x: visible;
-    overflow-y: scroll;
-    padding: 5px;
-    margin-top: 3px;
-    margin-left: -150px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #999;
-    border-top: none;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {
-    cursor: pointer;
-    padding: 5px 4px;
-    border-bottom: 1px solid #eee;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion:last-of-type {
-    border-bottom: none;
-    margin-bottom: 2px;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item {
-    overflow: hidden;
-    font-size: 0.8em;
-    line-height: 1.4em;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item h3 {
-    font-size: 1rem;
-    margin-block-start: 0;
-    margin-block-end: 5px;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-description {
-    display: inline-block;
-    overflow: hidden;
-    height: 2.8em;
-    width: 80%;
-    margin-right: 4%;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview {
-    display: inline-block;
-    width: 15%;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img {
-    height: 3em;
-    width: auto;
-    display: none;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .search-item-preview img[src] {
-    display: initial;
-  }
-
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {
-    background-color: #eee;
-  }
-  .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
-    font-weight: bold;
-    font-style: normal;
-  }
-
-  </style>
-
-
   <!--/radix_placeholder_navigation_in_header-->
   <!--radix_placeholder_distill-->
 
@@ -2029,268 +1433,217 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.6.6/header-attrs.js"></script>
-  <script src="site_libs/popper-2.6.0/popper.min.js"></script>
-  <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
-  <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
-  <script src="site_libs/tippy-6.2.7/tippy.umd.min.js"></script>
-  <script src="site_libs/anchor-4.2.2/anchor.min.js"></script>
-  <script src="site_libs/bowser-1.9.3/bowser.min.js"></script>
-  <script src="site_libs/webcomponents-2.0.0/webcomponents.js"></script>
-  <script src="site_libs/distill-2.2.21/template.v2.js"></script>
+  <script src="time_series_files/header-attrs-2.6.6/header-attrs.js"></script>
+  <script src="time_series_files/jquery-1.11.3/jquery.min.js"></script>
+  <script src="time_series_files/popper-2.6.0/popper.min.js"></script>
+  <link href="time_series_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="time_series_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="time_series_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="time_series_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="time_series_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="time_series_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="time_series_files/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
   <!--/radix_placeholder_site_in_header-->
 
 
 </head>
 
-<body class="layout-listing">
+<body>
 
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Featured projects","authors":[]}
+{"title":"Time series analysis","description":"This project demonstrates time series analysis","authors":[{"author":"Shane Dewees","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2021-03-15T00:00:00.000-07:00","citationText":"Dewees, 2021"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
 <!--radix_placeholder_navigation_before_body-->
-<header class="header header--fixed" role="banner">
-<nav class="distill-site-nav distill-site-header">
-<div class="nav-left">
-<a href="index.html" class="title">Shane Dewees</a>
-<input id="distill-search" class="nav-search hidden" type="text" placeholder="Search..."/>
-</div>
-<div class="nav-right">
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="curriculum_vitea.html">Curriculum Vitea</a>
-<a href="featured_projects.html">Featured work</a>
-<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
-</div>
-</nav>
-</header>
 <!--/radix_placeholder_navigation_before_body-->
 <!--radix_placeholder_site_before_body-->
 <!--/radix_placeholder_site_before_body-->
-<!--radix_placeholder_article_listing-->
-
-
-<script type="application/javascript">
-
-function init_posts_list() {
-
-  function load_image(img) {
-    var src = $(img).attr('data-src');
-    if (src) {
-      $(img).attr('src', src);
-      $(img).load(function() {
-        img.removeAttribute('data-src');
-      });
-    }
-  }
-
-  function set_posts_visible(posts, visible) {
-    if (visible) {
-
-      // show bottom border by default
-      $(posts).removeClass('post-preview-last');
-
-      // apply limits if need be
-      var max_posts = 25;
-      var apply_limits = $('.posts-container').hasClass('posts-apply-limit');
-      if (apply_limits && posts.length > max_posts) {
-        posts = $(posts).slice(0, max_posts);
-      } else {
-        $('.posts-more a').addClass('hidden');
-      }
-
-      // apply last style
-      $(posts.slice(-1)[0]).addClass('post-preview-last');
-
-      $(posts).removeClass('hidden');
-      $(posts).find('img[data-src]').each(function(i, img) {
-        load_image(img);
-      });
-    } else {
-      $(posts).addClass('hidden');
-    }
-  }
-
-  function apply_hash_filter() {
-
-    // clear active state
-    $('.categories .active').removeClass('active');
-
-    // mark all posts invisible to start
-    set_posts_visible($('.posts-list').children('a'), false);
-
-    // if we have a hash filter
-    if (window.location.hash && window.location.hash.startsWith("#category:")) {
-
-      // mark posts that match the category visible
-      var page_category = window.location.hash.replace(/^#category:/, "");
-      var posts = $('.post-metadata').map(function(idx, script) {
-        var metadata = $.parseJSON($(script).html());
-        var post = null;
-        $.each(metadata.categories, function(idx, category) {
-          category = category.replace(/ /g,"_");
-          if ((page_category || '').toLowerCase() === "articles" || category === page_category) {
-            post = $(script).parent().get();
-            return false;
-          }
-        });
-        return post;
-      });
-      set_posts_visible(posts, true);
-
-      // mark the hash active
-      $('.categories li>a[href="' + window.location.hash + '"]').addClass('active');
-
-      // update the list_caption
-      var list_caption = $('.posts-list-caption');
-      var caption = (page_category || '').toLowerCase() === "articles"
-        ? list_caption.attr('data-caption')
-        : ('Category: ' + page_category.replace(/_/g," "));
-      list_caption.text(caption);
-
-    } else {
-
-      // no hash filter, make all posts visible (subject to max display)
-      set_posts_visible($('.posts-list').children(), true);
-
-      // reset list caption
-      var list_caption = $('.posts-list-caption');
-      list_caption.text(list_caption.attr('data-caption'));
-
-
-    }
-  }
-
-  // more articles
-  function apply_post_limits(apply) {
-    if (apply) {
-      $('.posts-container').addClass('posts-apply-limit');
-      $('.posts-more a').removeClass('hidden');
-    } else {
-      $('.posts-container').removeClass('posts-apply-limit');
-      $('.posts-more a').addClass('hidden');
-    }
-  }
-
-  // click handling for tags
-  $('.dt-tag').click(function(ev) {
-    window.location.hash = '#category:' + $(this).text().replace(/ /g, "_");
-    return false;
-  })
-
-  // hash filter handling
-  apply_hash_filter();
-  $(window).on('hashchange',function() {
-    apply_post_limits(true);
-    apply_hash_filter();
-  });
-
-  // more articles link
-  $('.posts-more a').click(function(e) {
-    e.preventDefault();
-    apply_post_limits(false);
-    apply_hash_filter();
-    return false;
-  });
-
-}
-
-</script>
-
-
-
-<div class="posts-container posts-apply-limit l-page">
-<div class="posts-list">
-<h1 class="posts-list-caption" data-caption="Featured projects">Featured projects</h1>
-<a href="posts/time_series/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">March 15, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">Shane Dewees</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="posts/time_series/time_series_files/figure-html5/unnamed-chunk-1-1.png"/>
-</div>
-<div class="description">
-<h2>Time series analysis</h2>
-<div class="dt-tags"></div>
-<p>This project demonstrates time series analysis</p>
-</div>
-</a>
-<a href="posts/bootstrapping/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">March 11, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">Shane Dewees</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="posts/bootstrapping/parameter_estimation_bootstrapping_files/figure-html5/unnamed-chunk-1-1.png"/>
-</div>
-<div class="description">
-<h2>Parameter estimation and bootstrapping</h2>
-<div class="dt-tags"></div>
-<p>This project demonstrates parameter estimation and bootstrapping analysis</p>
-</div>
-</a>
-<a href="posts/text_analysis/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 21, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">Shane Dewees</div>
-</div>
-</div>
-<div class="thumbnail">
-<img src="posts/text_analysis/text_analysis_files/figure-html5/unnamed-chunk-2-1.png"/>
-</div>
-<div class="description">
-<h2>Text Analysis</h2>
-<div class="dt-tags"></div>
-<p>This project demonstrates a text analysis in Rstudio</p>
-</div>
-</a>
-<a href="posts/2021-02-09-welcom/" class="post-preview">
-<script class="post-metadata" type="text/json">{"categories":[]}</script>
-<div class="metadata">
-<div class="publishedDate">Feb. 9, 2021</div>
-<div class="dt-authors">
-<div class="dt-author">Shane Dewees</div>
-</div>
-</div>
-<div class="thumbnail">
-<img/>
-</div>
-<div class="description">
-<h2>welcome</h2>
-<div class="dt-tags"></div>
-<p>Welcome to my research blog. This will include research updates and stories.</p>
-</div>
-</a>
-</div>
-<div class="posts-more">
-<a href="#">More articles &raquo;</a>
-</div>
-</div>
-<!--/radix_placeholder_article_listing-->
 
 <div class="d-title">
-<h1>Featured projects</h1>
+<h1>Time series analysis</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-
+<p><p>This project demonstrates time series analysis</p></p>
 </div>
 
+<div class="d-byline">
+  Shane Dewees  
+  
+<br/>03-15-2021
+</div>
 
 <div class="d-article">
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#data-exploration-and-analysis">Data Exploration and Analysis</a>
+<ul>
+<li><a href="#original-time-series">Original Time Series</a></li>
+<li><a href="#seasonality">Seasonality</a></li>
+<li><a href="#species-annual-counts">Species Annual Counts</a></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+<h2 id="overview">Overview</h2>
+<p>In this brief report, adult Salmon passage data recorded from 2001 to 2010 at the Willamette Falls fish ladder on the Willamette River, OR, is explored and evaluated. Provided below are timeseries and seasonality plots of annual and monthly run counts for Coho, Jack Coho, and Steelhead Salmon at this location and for the period indicated. Also provided below, is the total observed annual Salmon passage count for the three species.</p>
+<figure>
+<img src="https://myodfw.com/sites/default/files/styles/380_max_width/public/2017-10/willamette_falls.jpg?itok=YSKK9Ko3" alt="Image 1. The Willamette Falls fish ladder on the Willamette River in Oregon. (Source: Oregon Department of Fish and Wildlife)" /><figcaption aria-hidden="true"><strong>Image 1.</strong> The Willamette Falls fish ladder on the Willamette River in Oregon. <em>(Source: Oregon Department of Fish and Wildlife)</em></figcaption>
+</figure>
+<p><strong>Map Location:</strong></p>
+<figure>
+<img src="https://esajournals.onlinelibrary.wiley.com/cms/asset/f5f31b28-3748-4c5d-a37b-c0be122aa919/ecs22448-fig-0001-m.jpg" alt="Image 2. Map of Willamette Falls fish ladder in reference to other monitoring locations within the Willamette Basin. (Source: Erdman, C. S., Caudill, C. C., Naughton, G. P., and Jepson, M. A.. 2018. Release of hatchery adult steelhead for angler opportunity increases potential for interactions with endemic steelhead. Ecosphere 9( 10):e02448. 10.1002/ecs2.2448)" /><figcaption aria-hidden="true"><strong>Image 2.</strong> Map of Willamette Falls fish ladder in reference to other monitoring locations within the Willamette Basin. <em>(Source: Erdman, C. S., Caudill, C. C., Naughton, G. P., and Jepson, M. A.. 2018. Release of hatchery adult steelhead for angler opportunity increases potential for interactions with endemic steelhead. Ecosphere 9( 10):e02448. 10.1002/ecs2.2448)</em></figcaption>
+</figure>
+<p><strong>Data Citation:</strong></p>
+<p>Columbia Basin Research. <em>DART adult passage</em>. (University of Washington, Seattle, 2010). <a href="http://www.cbr.washington.edu/dart/query/adult_graph_text" class="uri">http://www.cbr.washington.edu/dart/query/adult_graph_text</a></p>
+<h2 class="tabset tabset-fade tabset-pills" id="data-exploration-and-analysis">Data Exploration and Analysis</h2>
+<h3 id="original-time-series">Original Time Series</h3>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>salmon</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='fu'><a href='https://here.r-lib.org//reference/here.html'>here</a></span><span class='op'>(</span><span class='st'>"_posts"</span>, <span class='st'>"time_series"</span>, <span class='st'>"data"</span>, <span class='st'>"willamette_fish_passage.csv"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>salmon_ts</span> <span class='op'>&lt;-</span> <span class='va'>salmon</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>mutate</span><span class='op'>(</span>Date <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/ymd.html'>mdy</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://tsibble.tidyverts.org/reference/as-tsibble.html'>as_tsibble</a></span><span class='op'>(</span>key <span class='op'>=</span> <span class='cn'>NULL</span>, index <span class='op'>=</span> <span class='va'>Date</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>pivot_longer</span><span class='op'>(</span>cols <span class='op'>=</span> <span class='fl'>3</span><span class='op'>:</span><span class='fl'>15</span>, 
+               names_to <span class='op'>=</span> <span class='st'>"species"</span>, 
+               values_to <span class='op'>=</span> <span class='st'>"count"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>species</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Coho"</span>, <span class='st'>"Jack.Coho"</span>, <span class='st'>"Steelhead"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>replace_na</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>count <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>salmon_ts</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Date</span>, y <span class='op'>=</span> <span class='va'>count</span>, group <span class='op'>=</span> <span class='va'>species</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>geom_line</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>color <span class='op'>=</span> <span class='va'>species</span><span class='op'>)</span>, show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/gghighlight/man/gghighlight.html'>gghighlight</a></span><span class='op'>(</span>use_direct_label <span class='op'>=</span> <span class='cn'>FALSE</span>, 
+              unhighlighted_colour <span class='op'>=</span> <span class='fu'>alpha</span><span class='op'>(</span><span class='st'>"gray"</span>, <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span> 
+  <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>species</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>plot.title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span>, 
+                                  hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Salmon Run Counts at Willamette Falls Fish Ladder 2001-10"</span>,
+       y <span class='op'>=</span> <span class='st'>"Salmon Count"</span>, 
+       x <span class='op'>=</span> <span class='st'>"Year"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<p><img src="time_series_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
+</div>
+<p><strong>Figure 1.</strong> Faceted timeseries of Salmon run counts at Willamette falls fish ladder from 2001-2010 for Coho, Jack Coho, and Steelhead species. Run counts for all three species are shown in all three facets, but each facet highlights a specific species identified in the label. Coho are highlighted first in red, Jack Coho second in green and Steelhead last in blue.</p>
+<h4 id="takeaways">Takeaways</h4>
+<ul>
+<li><p>All three species show season cycles in their run counts, but the length of that seasonality is different for all three species. Jack Coho seems to have the most time between seasonal upticks in run counts with Steelhead showing the most reoccurrent seasonal upticks in run count.</p></li>
+<li><p>There is no observable trend or cyclicality to the run counts for any of the three species.</p></li>
+<li><p>Both Coho and Jack Coho show very variable run counts in their upticks, with some years having very small runs and some years having very large runs. Coho has both some of the smallest run years and the largest run years. Conversely, Steelhead seems more stable, with less variation in the run counts for its upticks.</p></li>
+</ul>
+<h3 id="seasonality">Seasonality</h3>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>coho_salmon</span> <span class='op'>&lt;-</span> <span class='va'>salmon_ts</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>species</span> <span class='op'>==</span> <span class='st'>"Coho"</span><span class='op'>)</span>
+  
+<span class='va'>jack_coho_salmon</span> <span class='op'>&lt;-</span> <span class='va'>salmon_ts</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>species</span> <span class='op'>==</span> <span class='st'>"Jack.Coho"</span><span class='op'>)</span>
+  
+<span class='va'>steelhead_salmon</span> <span class='op'>&lt;-</span> <span class='va'>salmon_ts</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>species</span> <span class='op'>==</span> <span class='st'>"Steelhead"</span><span class='op'>)</span>
+  
+<span class='va'>coho_month</span> <span class='op'>&lt;-</span> <span class='va'>coho_salmon</span> <span class='op'>%&gt;%</span> 
+ <span class='fu'>summarize</span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>count</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://feasts.tidyverts.org/reference/gg_season.html'>gg_season</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>count</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Coho"</span>, y <span class='op'>=</span> <span class='st'>"Salmon Count"</span>, x <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>coho_month</span>
+
+<span class='va'>jack_coho_month</span> <span class='op'>&lt;-</span> <span class='va'>jack_coho_salmon</span> <span class='op'>%&gt;%</span> 
+ <span class='fu'>summarize</span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>count</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://feasts.tidyverts.org/reference/gg_season.html'>gg_season</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>count</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Jack.Coho"</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, x <span class='op'>=</span> <span class='st'>"Month"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>legend.position <span class='op'>=</span> <span class='st'>"none"</span><span class='op'>)</span>
+
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>jack_coho_month</span>
+
+<span class='va'>steelhead_month</span> <span class='op'>&lt;-</span> <span class='va'>steelhead_salmon</span> <span class='op'>%&gt;%</span> 
+ <span class='fu'>summarize</span><span class='op'>(</span>count <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>count</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://feasts.tidyverts.org/reference/gg_season.html'>gg_season</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>count</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Steelhead"</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, x <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>steelhead_month</span>
+
+<span class='op'>(</span><span class='va'>p1</span> <span class='op'>|</span> <span class='va'>p2</span> <span class='op'>|</span> <span class='va'>p3</span><span class='op'>)</span>
+</code></pre>
+</div>
+</details>
+<p><img src="time_series_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
+</div>
+<p><strong>Figure 2.</strong> Seasonality plots of monthly salmon run counts at the Willamette Falls fish ladder, 2001-2010. Plots show Coho, Jack Coho, and Steelhead salmon.</p>
+<h4 id="takeaways-1">Takeaways</h4>
+<ul>
+<li><p>The seasonality of Coho and Jack Coho salmon runs are very similar, with an intense, temporally brief run that peaks in October.</p></li>
+<li><p>Steelhead salmon runs occur mostly in the first half of the year and show some variation but tend to fall between February and July.</p></li>
+<li><p>The seasonality plots further support the variability of Coho and Jack Coho runs and the relative stability of Steelhead runs.</p></li>
+</ul>
+<h3 id="species-annual-counts">Species Annual Counts</h3>
+<div class="layout-chunk" data-layout="l-body">
+<details>
+<summary>
+hide
+</summary>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>annual_totals</span> <span class='op'>&lt;-</span> <span class='va'>salmon_ts</span> <span class='op'>%&gt;%</span>
+  <span class='fu'>mutate</span><span class='op'>(</span>year <span class='op'>=</span> <span class='fu'><a href='http://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>Date</span><span class='op'>)</span>, 
+         .keep <span class='op'>=</span> <span class='st'>"unused"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># To mutate the lubridate::date as a new variable "year" and omit the source variable "date".</span>
+  <span class='fu'>select</span><span class='op'>(</span><span class='va'>species</span>, 
+         <span class='va'>count</span>, 
+         <span class='va'>year</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='co'># To select the variables of interest.</span>
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>year</span>, 
+           <span class='va'>species</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarize</span><span class='op'>(</span>annual_total <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># To group by year and species to derive annual totals.</span>
+
+<span class='fu'>ggplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>annual_totals</span>, 
+       <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>year</span>, 
+           y <span class='op'>=</span> <span class='va'>annual_total</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_col</span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='va'>species</span><span class='op'>)</span>, 
+           show.legend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>facet_wrap</span><span class='op'>(</span><span class='op'>~</span><span class='va'>species</span><span class='op'>)</span> <span class='op'>+</span> <span class='co'># OPINION: The best way to visualize this was via a faceted column graph.</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Total Annual Passage of Salmon Species 2001-10"</span>,
+       x <span class='op'>=</span> <span class='st'>"Year"</span>, 
+       y <span class='op'>=</span> <span class='st'>"Total Annual Fish Passage"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme</span><span class='op'>(</span>plot.title <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>face <span class='op'>=</span> <span class='st'>"bold"</span>, 
+                                  hjust <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>, 
+        axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span>, 
+        axis.title.y <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>vjust <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>scale_x_continuous</span><span class='op'>(</span>breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2001</span><span class='op'>:</span><span class='fl'>2010</span><span class='op'>)</span>, 
+                     labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"01"</span>, <span class='st'>"02"</span>, <span class='st'>"03"</span>, <span class='st'>"04"</span>, <span class='st'>"05"</span>, 
+                                <span class='st'>"06"</span>, <span class='st'>"07"</span>, <span class='st'>"08"</span>, <span class='st'>"09"</span>, <span class='st'>"10"</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># To rename X axis value labels to simpler indeces.</span>
+</code></pre>
+</div>
+</details>
+<p><img src="time_series_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
+</div>
+<p><strong>Figure 3.</strong> Total observed annual salmon passage count by species, between 2001 and 2010 via fish ladders at Willamette Falls, Oregon.</p>
+<h4 id="takeaways-2">Takeaways</h4>
+<ul>
+<li><p>More Steelhead Salmon have passed through the Willamette Falls fish ladders than that of any of the other two species.</p></li>
+<li><p>There was a significant increased count of Coho Salmon passing through the Willamette Falls fish ladders in 2009 and 2010, versus in any of the previous record years.</p></li>
+<li><p>There is a decreasing trend in Steelhead Salmon count and a consistent trend of Jack Coho Salmon count passing through the Willamette Falls fish ladders throughout the 2001 to 2010 period.</p></li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

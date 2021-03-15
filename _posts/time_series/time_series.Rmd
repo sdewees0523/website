@@ -1,0 +1,172 @@
+---
+title: "Time series analysis"
+description: |
+  This project demonstrates time series analysis
+author:
+  - name: Shane Dewees
+date: 03-15-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+    theme: journal
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(here)
+library(tsibble)
+library(feasts)
+library(slider)
+library(gghighlight)
+library(patchwork)
+```
+
+## Overview
+
+In this brief report, adult Salmon passage data recorded from 2001 to 2010 at the Willamette Falls fish ladder on the Willamette River, OR, is explored and evaluated. Provided below are timeseries and seasonality plots of annual and monthly run counts for Coho, Jack Coho, and Steelhead Salmon at this location and for the period indicated. Also provided below, is the total observed annual Salmon passage count for the three species.
+
+![**Image 1.** The Willamette Falls fish ladder on the Willamette River in Oregon. *(Source: Oregon Department of Fish and Wildlife)*](https://myodfw.com/sites/default/files/styles/380_max_width/public/2017-10/willamette_falls.jpg?itok=YSKK9Ko3)
+
+**Map Location:**
+
+![**Image 2.** Map of Willamette Falls fish ladder in reference to other monitoring locations within the Willamette Basin. *(Source: Erdman, C. S., Caudill, C. C., Naughton, G. P., and Jepson, M. A.. 2018. Release of hatchery adult steelhead for angler opportunity increases potential for interactions with endemic steelhead. Ecosphere 9( 10):e02448. 10.1002/ecs2.2448)*](https://esajournals.onlinelibrary.wiley.com/cms/asset/f5f31b28-3748-4c5d-a37b-c0be122aa919/ecs22448-fig-0001-m.jpg)
+
+**Data Citation:**
+
+Columbia Basin Research. *DART adult passage*. (University of Washington, Seattle, 2010). http://www.cbr.washington.edu/dart/query/adult_graph_text
+
+## Data Exploration and Analysis {.tabset .tabset-fade .tabset-pills}
+
+### Original Time Series
+
+```{r, message = FALSE, warning = FALSE}
+salmon <- read.csv(here("_posts", "time_series", "data", "willamette_fish_passage.csv"))
+salmon_ts <- salmon %>% 
+  mutate(Date = mdy(Date)) %>% 
+  as_tsibble(key = NULL, index = Date) %>% 
+  pivot_longer(cols = 3:15, 
+               names_to = "species", 
+               values_to = "count") %>% 
+  filter(species %in% c("Coho", "Jack.Coho", "Steelhead")) %>% 
+  replace_na(list(count = 0))
+
+ggplot(data = salmon_ts, aes(x = Date, y = count, group = species))+
+  geom_line(aes(color = species), show.legend = FALSE) +
+  gghighlight(use_direct_label = FALSE, 
+              unhighlighted_colour = alpha("gray", 0.5))+ 
+  facet_wrap(~species)+
+  theme_bw()+ 
+  theme(plot.title = element_text(face = "bold", 
+                                  hjust = 0.5))+
+  labs(title = "Salmon Run Counts at Willamette Falls Fish Ladder 2001-10",
+       y = "Salmon Count", 
+       x = "Year")
+```
+
+**Figure 1.** Faceted timeseries of Salmon run counts at Willamette falls fish ladder from 2001-2010 for Coho, Jack Coho, and Steelhead species. Run counts for all three species are shown in all three facets, but each facet highlights a specific species identified in the label. Coho are highlighted first in red, Jack Coho second in green and Steelhead last in blue. 
+
+#### Takeaways 
+
+- All three species show season cycles in their run counts, but the length of that seasonality is different for all three species. Jack Coho seems to have the most time between seasonal upticks in run counts with Steelhead showing the most reoccurrent seasonal upticks in run count. 
+  
+- There is no observable trend or cyclicality to the run counts for any of the three species. 
+  
+- Both Coho and Jack Coho show very variable run counts in their upticks, with some years having very small runs and some years having very large runs. Coho has both some of the smallest run years and the largest run years. Conversely, Steelhead seems more stable, with less variation in the run counts for its upticks. 
+
+### Seasonality
+
+```{r, message = FALSE, warning = FALSE}
+coho_salmon <- salmon_ts %>% 
+  filter(species == "Coho")
+  
+jack_coho_salmon <- salmon_ts %>% 
+  filter(species == "Jack.Coho")
+  
+steelhead_salmon <- salmon_ts %>% 
+  filter(species == "Steelhead")
+  
+coho_month <- coho_salmon %>% 
+ summarize(count = mean(count, na.rm = TRUE)) %>% 
+  gg_season(y = count) +
+  labs(title = "Coho", y = "Salmon Count", x = NULL) +
+  theme_bw() + 
+  theme(legend.position = "none")
+
+p1 <- coho_month
+
+jack_coho_month <- jack_coho_salmon %>% 
+ summarize(count = mean(count, na.rm = TRUE)) %>% 
+  gg_season(y = count) +
+  labs(title = "Jack.Coho", y = NULL, x = "Month") +
+  theme_bw() + 
+  theme(legend.position = "none")
+
+p2 <- jack_coho_month
+
+steelhead_month <- steelhead_salmon %>% 
+ summarize(count = mean(count, na.rm = TRUE)) %>% 
+  gg_season(y = count) +
+  labs(title = "Steelhead", y = NULL, x = NULL) + 
+  theme_bw()
+
+p3 <- steelhead_month
+
+(p1 | p2 | p3)
+```
+
+**Figure 2.** Seasonality plots of monthly salmon run counts at the Willamette Falls fish ladder, 2001-2010. Plots show Coho, Jack Coho, and Steelhead salmon.
+
+#### Takeaways
+
+- The seasonality of Coho and Jack Coho salmon runs are very similar, with an intense, temporally brief run that peaks in October. 
+
+- Steelhead salmon runs occur mostly in the first half of the year and show some variation but tend to fall between February and July.
+
+- The seasonality plots further support the variability of Coho and Jack Coho runs and the relative stability of Steelhead runs.
+
+### Species Annual Counts
+
+```{r, message = FALSE, warning = FALSE}
+annual_totals <- salmon_ts %>%
+  mutate(year = year(Date), 
+         .keep = "unused") %>% # To mutate the lubridate::date as a new variable "year" and omit the source variable "date".
+  select(species, 
+         count, 
+         year) %>% # To select the variables of interest.
+  group_by(year, 
+           species) %>% 
+  summarize(annual_total = sum(count)) # To group by year and species to derive annual totals.
+
+ggplot(data = annual_totals, 
+       aes(x = year, 
+           y = annual_total)) + 
+  geom_col(aes(fill = species), 
+           show.legend = FALSE) + 
+  facet_wrap(~species) + # OPINION: The best way to visualize this was via a faceted column graph.
+  labs(title = "Total Annual Passage of Salmon Species 2001-10",
+       x = "Year", 
+       y = "Total Annual Fish Passage") + 
+  theme_bw() + 
+  theme(plot.title = element_text(face = "bold", 
+                                  hjust = 0.5), 
+        axis.title.x = element_text(vjust = -2), 
+        axis.title.y = element_text(vjust = 3)) + 
+  scale_x_continuous(breaks = c(2001:2010), 
+                     labels = c("01", "02", "03", "04", "05", 
+                                "06", "07", "08", "09", "10")) # To rename X axis value labels to simpler indeces.
+```
+
+**Figure 3.** Total observed annual salmon passage count by species, between 2001 and 2010 via fish ladders at Willamette Falls, Oregon. 
+
+#### Takeaways
+
+- More Steelhead Salmon have passed through the Willamette Falls fish ladders than that of any of the other two species.
+
+- There was a significant increased count of Coho Salmon passing through the Willamette Falls fish ladders in 2009 and 2010, versus in any of the previous record years.
+
+- There is a decreasing trend in Steelhead Salmon count and a consistent trend of Jack Coho Salmon count passing through the Willamette Falls fish ladders throughout the 2001 to 2010 period.
