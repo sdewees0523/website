@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/bootstrapping/",
+    "title": "Parameter estimation and bootstrapping",
+    "description": "This project demonstrates parameter estimation and bootstrapping analysis",
+    "author": [
+      {
+        "name": "Shane Dewees",
+        "url": {}
+      }
+    ],
+    "date": "2021-03-11",
+    "categories": [],
+    "contents": "\r\n\r\nContents\r\nParameter Estimation\r\nBootstrap analysis\r\n\r\nParameter Estimation\r\n\r\n\r\nhide\r\n\r\nwild_catch <- read.csv(here(\"_posts\", \"bootstrapping\", \"data\", \"fish_catch.csv\"), skip = 1)\r\ncolnames(wild_catch) <- wild_catch[1,]\r\nwild_catch <- wild_catch %>% \r\n  slice(-(1:3)) %>% \r\n  slice(-(64:67)) %>% \r\n  clean_names() %>% \r\n  mutate(year = as.numeric(year),\r\n         wild_catch = as.numeric(wild_catch),\r\n         farmed_fish = as.numeric(farmed_fish),\r\n         total_fish_production = as.numeric(total_fish_production),\r\n         year_new = 1:n())\r\n  \r\n\r\nggplot(wild_catch, aes(x = year, y = wild_catch))+\r\n  geom_point()\r\n\r\n\r\n\r\nhide\r\n\r\nwild_catch_exp <- wild_catch %>% \r\n  filter(year < 1990) %>% \r\n  mutate(ln_wild_catch = log(wild_catch))\r\nlm_k <- lm(ln_wild_catch ~ year, data = wild_catch_exp)\r\n\r\n\r\n\r\nfigure 1: Exploratory graph of how wild catch changes over time.\r\nThe above graph shows that there appears to be a logistic growth in wild catch, or that it initially increases exponentially, but then slows down and eventually platues as carrying capacity is reached. Mathematically this would look like \\(P(t) = \\frac{K} {1 + Ae^{-kt}}\\). The inital estimates for the parameters in the model are that K = 90, A = (90-25)/25 or 2.6, and k = 0.03\r\n\r\n\r\nhide\r\n\r\nwild_catch_nls<- nls(wild_catch ~ K/(1 + A*exp(-r*year_new)),\r\n               data = wild_catch,\r\n               start = list(K = 90, A = 2.6, r = 0.03),\r\n               trace = FALSE)\r\nmodel_out <- broom::tidy(wild_catch_nls)\r\n\r\n\r\n\r\nOur model with estimation parameters is:\r\n\\(P(t) = \\frac{100.28} {1 + 4.63e^{-0.07t}}\\)\r\n\r\n\r\nhide\r\n\r\np_predict <- predict(wild_catch_nls,)\r\np_ci <- confint2(wild_catch_nls)\r\nwild_catch_predict <- data.frame(wild_catch, p_predict)\r\n\r\nggplot(data = wild_catch_predict, aes(x = year, y = wild_catch))+\r\n  geom_point() + \r\n  geom_line(aes(x = year, y = p_predict)) +\r\n  labs(title= \"Predicted wild catch from nls overlaying actual wild catch\", \r\n       x = \"Year\", \r\n       y = \"Wild catch\") +\r\n  theme_classic()\r\n\r\n\r\n\r\n\r\nBootstrap analysis\r\n\r\n\r\nhide\r\n\r\nnonbinary_offense <- c(1,1,1,1,1,1,1,1,1,1,\r\n                       1,1,1,1,1,1,1,1,1,1,\r\n                       1,1,0,0,0,0,0,0,0,0,\r\n                       0,0,0,0,0,0)\r\nnonbinary_offense_df <- data.frame(nonbinary_offense)\r\ncolnames(nonbinary_offense_df) <- c(\"response\")\r\nprop_fun <- function(x,i){mean(x[i])} # because I created the vector as binary 1's for yes and 0's for no, taking the mean is effectively the same as creating a proportion, because it adds up all the 1's (yes responses) and divides it by the total responses.\r\nboot_10k <- boot(nonbinary_offense, \r\n                   statistic = prop_fun, \r\n                   R = 10000)\r\nboot_100k <- boot(nonbinary_offense,\r\n                  statistic = prop_fun, \r\n                  R=100000)\r\nboot_10k_df <- data.frame(bs_mean = boot_10k$t)\r\nboot_100k_df <- data.frame(bs_mean = boot_100k$t)\r\n\r\np1 <- ggplot(data = nonbinary_offense_df, aes(x = response)) +\r\n  geom_histogram()\r\n\r\np2 <- ggplot(data = boot_10k_df, aes(x = bs_mean)) +\r\n  geom_histogram()\r\n\r\np3 <- ggplot(data = boot_100k_df, aes(x = bs_mean)) +\r\n  geom_histogram()\r\n\r\n(p1 + p2 + p3) & theme_minimal()\r\n\r\n\r\n\r\nhide\r\n\r\nboot.ci(boot_100k, conf = 0.95)\r\n\r\n\r\nBOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS\r\nBased on 100000 bootstrap replicates\r\n\r\nCALL : \r\nboot.ci(boot.out = boot_100k, conf = 0.95)\r\n\r\nIntervals : \r\nLevel      Normal              Basic         \r\n95%   ( 0.4519,  0.7703 )   ( 0.4444,  0.7778 )  \r\n\r\nLevel     Percentile            BCa          \r\n95%   ( 0.4444,  0.7778 )   ( 0.4167,  0.7222 )  \r\nCalculations and Intervals on Original Scale\r\n\r\nThe 2014 UCSB Campus Climate Project Final Report found that 61% of students identifying as nonbinary/genderqueer reported having experienced “exclusionary, offensive, hostile, or intimidating” conduct (n=36), with a bootstrapped 95% confidence interval of [0.45, 0.77]% (n=100,000 bootstrap samples).\r\n\r\n\r\n\r\n",
+    "preview": "posts/bootstrapping/parameter_estimation_bootstrapping_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2021-03-15T07:37:17-07:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/2021-02-09-welcom/",
     "title": "welcome",
     "description": "Welcome to my research blog. This will include research updates and stories.",
@@ -13,7 +30,7 @@
     "categories": [],
     "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-02-09T07:48:25-08:00",
+    "last_modified": "2021-03-15T07:37:17-07:00",
     "input_file": {}
   }
 ]

@@ -12,5 +12,5 @@ navbar:
     - text: "Curriculum Vitea"
       href: curriculum_vitea.html
     - text: "Featured work"
-      href: blog.html
+      href: featured_projects.html
 output: distill::distill_article
