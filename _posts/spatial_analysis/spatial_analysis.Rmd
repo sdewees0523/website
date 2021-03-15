@@ -1,0 +1,98 @@
+---
+title: "Spatial analysis"
+description: |
+  This project demonstrates spatial analysis
+author:
+  - name: Shane Dewees
+date: 03-09-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+    theme: journal
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tmap)
+library(tidyverse)
+library(here)
+library(sf)
+library(raster)
+```
+
+## Exploring California oil spills {.tabset .tabset-fade .tabset-pills}
+
+```{r, warning = FALSE, message=FALSE}
+counties <- read_sf(here("_posts", "spatial_analysis", "data", "tl_2016_us_county", "tl_2016_us_county.shp")) %>% 
+  filter(STATEFP == "06")
+
+oil_spills_ca <- read_sf(here("_posts", "spatial_analysis", "data", "Oil_Spill_Incident_Tracking_%5Bds394%5D-shp", "Oil_Spill_Incident_Tracking_%5Bds394%5D.shp" )) %>% 
+  st_transform(st_crs(counties))
+oil_spills_ca_inland <- oil_spills_ca %>% 
+  filter(INLANDMARI == "Inland")
+
+inland_oil_spills_counts <- counties %>% 
+  st_join(oil_spills_ca_inland) %>% 
+  count(LOCALECOUN)
+
+
+```
+
+### Interactive map of California oil spills
+
+```{r, warning = FALSE, message=FALSE}
+tmap_mode(mode = "view")
+ tm_shape(counties) +
+  tm_fill()+
+  tm_shape(oil_spills_ca) +
+  tm_dots(col = "blue", alpha = 0.75)
+ 
+```
+
+figure 1: Interactive map of 2008 oil spills in California. Each blue dot represents an oil spill event in 2008. Clicking on a dot will reveal more information, such as  date of incidient, county and city of incident, and type of waterway. 
+
+### Chloropleth of inland oil spills
+
+```{r, warning = FALSE, message=FALSE}
+ggplot(data = inland_oil_spills_counts) +
+  geom_sf(aes(fill = n), color = "white", size = 0.1) +
+  scale_fill_gradientn(colors = c("green", "orange", "red"))+
+  theme_void()+
+  labs(title = "Chloropleth of inland oil spills per county in California",
+    fill = "Number of inland oil spills")
+```
+
+figure 2: Chloropleth map showing density of inland oil spills by county in California during 2008. Color gradient is green for zero spills to red for over 300 spills. 
+
+## Exploring cetacean species abundance
+
+```{r, warning = FALSE, message = FALSE}
+my_files <- list.files(path = here("_posts", "spatial_analysis", "data", "ca_cetaceans"), full.names = TRUE, pattern = ".tif")
+ca_cetaceans <- stack(my_files) 
+ca_cetaceans_abundance <- ca_cetaceans %>% 
+  reclassify(c(-Inf, 0.75, 0, 0.75, Inf, 1), include.lowest = TRUE) %>% 
+  calc(fun = sum, na.rm = TRUE)
+
+coast <- read_sf(here("_posts", "spatial_analysis", "data", "tl_2019_us_coastline", "tl_2019_us_coastline.shp")) %>%
+  filter(NAME == "Pacific") %>% 
+  st_transform(st_crs(ca_cetaceans_abundance))
+```
+
+```{r, warning = FALSE, message=FALSE}
+ca_cetaceans_abundance_df <-  ca_cetaceans_abundance %>% 
+  rasterToPoints() %>% 
+  as.data.frame()
+
+ggplot() +
+  geom_raster(data = ca_cetaceans_abundance_df, aes(x= x, y = y, fill = layer)) +
+  geom_sf(data = coast) +
+  coord_sf(xlim = c(-125, -115), ylim = c(32, 38))+
+  theme_void()+
+  labs(title = "Predicted species abundance for cetacean species off California coast", 
+       fill = "Predicted species abundace")
+```
+
+figure 3: Map of predicted cetacean species abundance off the California coast. Species abundance was predicted from Kaschner et al.'s (2016) predictive species range maps. A probability threshold of 0.75 was selected when predicting abundance. This threshold was selected to be more conservative when predicting abundance. Dark blue represents low to zero abundance, whereas light blue represents high species abundance.  
