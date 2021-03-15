@@ -1,0 +1,127 @@
+---
+title: "Text Analysis"
+description: |
+  This project demonstrates a text analysis in Rstudio 
+author:
+  - name: Shane Dewees
+date: 02-09-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+    theme: journal
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidytext)
+library(textdata)
+library(pdftools)
+library(ggwordcloud)
+library(here)
+```
+
+## Word Exploration for 101 Mexican dishes  {.tabset .tabset-fade .tabset-pills}
+
+data citiation: Southworth, M. E. (1906). One hundred &amp; one Mexican dishes. San Francisco, CA: Paul Elder and Company , San Francisco.
+
+```{r, cache=TRUE, message= FALSE, warning = FALSE}
+recipes <- pdf_text(here("_posts", "text_analysis", "one_hundred_mexican_recipes.pdf"))
+recipes_tidy <- recipes %>% 
+  data.frame() %>% 
+  mutate(text_full = str_split(recipes, pattern = '\\n')) %>% 
+  unnest(text_full) %>% 
+  mutate(text_full = str_squish(text_full)) %>% 
+  slice(-(1:37)) %>% 
+  mutate(food_type = case_when(
+    text_full %in% c("SOUP", "FISH", "MEAT", "FOWL", "VEGETABLES", "MEAT DUMPLINGS",
+                     "DESSERTS", "ENCHILADAS", "TAMALES", "OLLA PODRIDA") ~ text_full,
+    TRUE ~ NA_character_
+  ))
+  recipes_tidy[891,3] <- "MEAT DUMPLINGS"
+recipes_tidy <- recipes_tidy %>% 
+  fill(food_type) 
+
+recipes_tokens <- recipes_tidy %>% 
+  unnest_tokens(word, text_full) %>% 
+  select(-.)
+
+recipes_nonstop_words <- recipes_tokens %>% 
+  anti_join(stop_words)
+
+recipes_counts <- recipes_nonstop_words %>% 
+  count(food_type, word)
+
+top_10_words <- recipes_counts %>% 
+  group_by(food_type) %>% 
+  arrange(-n) %>% 
+  slice(1:10)
+```
+### Word counts
+
+```{r, message = FALSE, warning= FALSE}
+ggplot(data = top_10_words, aes(x = word, y = n)) +
+  geom_col(fill = "blue") +
+  facet_wrap(~food_type, scales = "free") +
+  coord_flip() +
+  labs(y = "word count", 
+       title = "Count of top 10 words by food type")
+```
+
+figure 1: Word count of the top 10 words (excluding stop words) seperated by food type. 
+
+```{r, warning = FALSE, message = FALSE}
+recipes_top100 <- recipes_counts %>% 
+  arrange(-n) %>% 
+  slice(1:100)
+
+recipes_cloud <- ggplot(data = recipes_top100, aes(label = word)) +
+  geom_text_wordcloud(aes(color = n, size = n), shape = "diamond") +
+  scale_size_area(max_size = 6) +
+  scale_color_gradientn(colors = c("darkgreen","blue","purple")) +
+  theme_void()
+recipes_cloud
+```
+
+figure 2: Word cloud of top 100 words throughout recipe book. Larger words in pinker colors are the most common, whereas smaller, greyish/green words are the least common. 
+
+### Sentiment analysis
+
+```{r, warning = FALSE, message = FALSE}
+recipes_afinn <- recipes_nonstop_words %>% 
+  inner_join(get_sentiments("afinn"))
+
+afinn_counts <- recipes_afinn %>% 
+  count(food_type, value)
+
+ggplot(data = afinn_counts, aes(x = value, y = n)) +
+  geom_col() +
+  facet_wrap(~food_type) +
+  theme_minimal()+
+  labs(title = "Distribution of affin counts per food type",
+       x = "Affin values",
+       y = "counts")
+
+```
+
+figure 3: Distribution of affin values per food type. Affin values range from -5 (most negative) to 5 (most positive). 
+
+```{r, warning = FALSE, message = FALSE}
+afinn_means <- recipes_afinn %>% 
+  group_by(food_type) %>% 
+  summarize(mean_afinn = mean(value))
+ggplot(data = afinn_means, 
+       aes(x = fct_rev(as.factor(food_type)), 
+           y = mean_afinn)) +
+  geom_col() +
+  coord_flip() +
+  theme_classic() +
+  labs(title = "Sentiment analysis per food type",
+       x = "Food type",
+       y = "Mean affin score. (range: -5 to 5)")
+```
+
+figure 3: Sentiment analysis for each food type using the affin database for word sentiments. Affin classifies words with a score from -5 (most negative) to 5 (most positive). Sentiment analysis was performed by taking the mean score from all words for each food type. 
